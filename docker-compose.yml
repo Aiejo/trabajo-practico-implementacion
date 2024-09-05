@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresBejapasteles
+    environment:
+      POSTGRES_DB: BejapastelesDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgresalejandro
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network
+
+  app:
+    build: .
+    environment:
+      - CONNECTION_URL=jdbc:postgresql://localhost:5432/BejapastelesDB
+      - USER=postgres
+      - PASSWORD=postgresalejandro
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+    networks:
+      - postgres_network
+networks:
+  postgres_network:
+
+volumes:
+  postgres_data:
