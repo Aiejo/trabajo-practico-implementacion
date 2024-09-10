@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  postgres:
+  postgresBeja:
     image: postgres:latest
-    container_name: postgresBejapasteles
+    container_name: postgresBeja
     environment:
       POSTGRES_DB: BejapastelesDB
       POSTGRES_USER: postgres
@@ -14,17 +14,29 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - postgres_network
-
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+       PGADMIN_DEFAULT_PASSWORD: postgresalejandro
+    ports:
+      - "8090:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - postgres_network
   app:
     build: .
+    container_name: appSpring
     environment:
-      - CONNECTION_URL=jdbc:postgresql://localhost:5432/BejapastelesDB
-      - USER=postgres
-      - PASSWORD=postgresalejandro
+      - USER=${USER}
+      - PASSWORD=${PASSWORD}
+      - CONNECTION_URL=${CONNECTION_URL}
     ports:
       - "8082:8080"
     depends_on:
-      - postgres
+      - postgresBeja
     networks:
       - postgres_network
 networks:
@@ -32,3 +44,4 @@ networks:
 
 volumes:
   postgres_data:
+  pgadmin_data:
