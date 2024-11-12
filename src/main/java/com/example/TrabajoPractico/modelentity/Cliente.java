@@ -27,7 +27,7 @@ public class Cliente {
     @Column
     private String telefono;
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
-    //@JsonIgnore
+    @JsonManagedReference
+    @JsonIgnore
     private List<Compra> compras;
 }

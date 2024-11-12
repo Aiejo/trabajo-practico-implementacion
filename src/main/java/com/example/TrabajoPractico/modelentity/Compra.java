@@ -18,12 +18,12 @@ public class Compra {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne()
     @JoinColumn(name = "producto_id")
-    @JsonManagedReference
+    @JsonBackReference
     private Producto producto;
 
     private Integer cantidadComprada;

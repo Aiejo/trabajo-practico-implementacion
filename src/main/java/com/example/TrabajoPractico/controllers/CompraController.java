@@ -59,8 +59,9 @@ public class CompraController {
             @RequestParam Integer cantidad) {
         Map<String, String> response = new HashMap<>();
         try {
-            response.put("message", "Compra realizada con éxito");
-            return ResponseEntity.status(200).body(response);
+            Compra compra = compraService.registrarCompra(productoId, clienteId, cantidad);
+            return ResponseEntity.status(200).body(compra);
+
         } catch (Exception e) {
             response.put("message", e.getMessage());
             return ResponseEntity.status(400).body(response);

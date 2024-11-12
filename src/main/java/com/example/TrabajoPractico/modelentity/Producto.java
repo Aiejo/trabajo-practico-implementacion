@@ -25,7 +25,7 @@ public class Producto {
     @Column
     private Integer cantidadStock;
     @OneToMany(mappedBy = "producto")
-    @JsonBackReference
-    //@JsonIgnore
+    @JsonManagedReference
+    @JsonIgnore
     private List<Compra> compras;
 }
