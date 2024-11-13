@@ -34,7 +34,7 @@ services:
       - PASSWORD=${PASSWORD}
       - CONNECTION_URL=${CONNECTION_URL}
     ports:
-      - "8082:8080"
+      - "8080:8080"
     depends_on:
       - postgresBeja
     networks:
